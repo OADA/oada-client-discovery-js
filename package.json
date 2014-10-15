@@ -1,6 +1,6 @@
 {
   "name": "oada-client-discovery",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "OADA (openag.io) client discovery middleware",
   "keywords": [
     "OADA",
