@@ -16,6 +16,7 @@
 
 var objectAssign = require('object-assign');
 var cors = require('cors');
+var debug = require('debug')('oada-client-discovery');
 
 function clientDiscovery(lookup, options) {
   if (typeof lookup !== 'function' || lookup.length != 2) {
@@ -47,6 +48,7 @@ function clientDiscovery(lookup, options) {
 
       lookup(clientId, function(clientReg) {
         if (!clientReg) {
+          debug('Could not lookup registration document for ' + clientId);
           return res.status(404).send('Client Registration ' + clientId +
                                       ' not found');
         }
@@ -54,6 +56,7 @@ function clientDiscovery(lookup, options) {
         var reg = objectAssign({}, base, clientReg);
         reg.clientId = clientId;
 
+        debug('Found registration document for ' + clientId);
         res.json(reg);
       });
     });

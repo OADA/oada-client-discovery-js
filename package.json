@@ -29,8 +29,9 @@
     "minimal": "node examples/minimal.js"
   },
   "dependencies": {
-    "object-assign": "^1.0.0",
-    "cors": "^2.4.2"
+    "cors": "^2.4.2",
+    "debug": "^2.1.0",
+    "object-assign": "^1.0.0"
   },
   "devDependencies": {
     "chai": "~1.9.1",
