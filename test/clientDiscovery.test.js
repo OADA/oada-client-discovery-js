@@ -21,6 +21,8 @@ var expect = require('chai').expect;
 var express = require('express');
 var request = require('supertest');
 
+var OADAErrorMiddleware = require('oada-error').middleware;
+
 var clientDiscovery = require('../clientDiscovery');
 
 function lookup(clientId, cb) {
@@ -56,6 +58,7 @@ describe('clientDiscovery', function() {
 
       next();
     });
+    app.use(OADAErrorMiddleware());
 
     request(app)
       .get('/clientDiscovery')
@@ -70,6 +73,7 @@ describe('clientDiscovery', function() {
   it('should require clientId query parameter', function(done) {
     var app = express();
     app.get('/clientDiscovery', clientDiscovery(lookup));
+    app.use(OADAErrorMiddleware());
 
     request(app)
       .get('/clientDiscovery')
@@ -79,6 +83,7 @@ describe('clientDiscovery', function() {
   it('should succeed with valid client id', function(done) {
     var app = express();
     app.get('/clientDiscovery', clientDiscovery(lookup));
+    app.use(OADAErrorMiddleware());
 
     request(app)
       .get('/clientDiscovery')
@@ -89,6 +94,7 @@ describe('clientDiscovery', function() {
   it('should fail with invalid client id', function(done) {
     var app = express();
     app.get('/clientDiscovery', clientDiscovery(lookup));
+    app.use(OADAErrorMiddleware());
 
     request(app)
       .get('/clientDiscovery')

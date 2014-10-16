@@ -21,10 +21,7 @@ var OADAError = require('oada-error').OADAError;
 
 function clientDiscovery(lookup, options) {
   if (typeof lookup !== 'function' || lookup.length != 2) {
-    throw new OADAError('clientDiscovery() requires lookup(clientId, done)',
-                        OADAError.codes.INTERNAL_ERROR,
-                        null,
-                        'Program error, please contact the developer');
+    throw new Error('clientDiscovery() requires lookup(clientId, done)');
   }
 
   options = options || {};
@@ -47,14 +44,17 @@ function clientDiscovery(lookup, options) {
       var clientId = req.query.clientId;
 
       if (!clientId) {
-        return res.status(400).send('Query parameter clientId is required');
+        return next(new OADAError('Query parameter clientId is required',
+                        OADAError.codes.BAD_REQUEST,
+                        'Program error, please contact the developer'));
       }
 
       lookup(clientId, function(clientReg) {
         if (!clientReg) {
-          debug('Could not lookup registration document for ' + clientId);
-          return res.status(404).send('Client Registration ' + clientId +
-                                      ' not found');
+          return next(
+            new OADAError('Cannot find ' + clientId + ' registration',
+                          OADAError.codes.NOT_FOUND,
+                          'Program error, please contact the developer'));
         }
 
         var reg = objectAssign({}, base, clientReg);
