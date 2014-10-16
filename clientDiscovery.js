@@ -17,10 +17,14 @@
 var objectAssign = require('object-assign');
 var cors = require('cors');
 var debug = require('debug')('oada-client-discovery');
+var OADAError = require('oada-error').OADAError;
 
 function clientDiscovery(lookup, options) {
   if (typeof lookup !== 'function' || lookup.length != 2) {
-    throw new Error('clientDiscovery() requires lookup(clientId, done)');
+    throw new OADAError('clientDiscovery() requires lookup(clientId, done)',
+                        OADAError.codes.INTERNAL_ERROR,
+                        null,
+                        'Program error, please contact the developer');
   }
 
   options = options || {};
