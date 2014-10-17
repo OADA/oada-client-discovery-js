@@ -50,7 +50,7 @@ function clientDiscovery(lookup, options) {
       }
 
       lookup(clientId, function(err, clientReg) {
-        if(err) {
+        if (err) {
           return next(
             new OADAError('Client ID lookup error: ' + err,
                           OADAError.codes.NOT_FOUND,
