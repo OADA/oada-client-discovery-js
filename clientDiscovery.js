@@ -49,7 +49,14 @@ function clientDiscovery(lookup, options) {
                         'Program error, please contact the developer'));
       }
 
-      lookup(clientId, function(clientReg) {
+      lookup(clientId, function(err, clientReg) {
+        if(err) {
+          return next(
+            new OADAError('Client ID lookup error: ' + err,
+                          OADAError.codes.NOT_FOUND,
+                          'Program error, please contact the developer'));
+        }
+
         if (!clientReg) {
           return next(
             new OADAError('Cannot find ' + clientId + ' registration',

@@ -28,7 +28,11 @@ var clientDiscovery = require('../clientDiscovery');
 function lookup(clientId, cb) {
   switch (clientId) {
     case '123@agcloud.com':
-      cb({});
+      cb(null, {});
+      break;
+
+    case 'error':
+      cb('Contrived Error');
       break;
 
     default:
@@ -99,6 +103,18 @@ describe('clientDiscovery', function() {
     request(app)
       .get('/clientDiscovery')
       .query({clientId: '456@agcloud.com'})
+      .expect(404, done);
+  });
+
+  it('should fail with client lookup err', function(done) {
+    var app = express();
+
+    app.get('/clientDiscovery', clientDiscovery(lookup));
+    app.use(oadaErrorMiddleware());
+
+    request(app)
+      .get('/clientDiscovery')
+      .query({clientId: 'error'})
       .expect(404, done);
   });
 });
