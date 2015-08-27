@@ -1,3 +1,5 @@
+* This repository is deprecated. CLient discovery is no longer an OADA protocol. *
+
 [![Build Status](https://travis-ci.org/OADA/oada-client-discovery-js.svg)](https://travis-ci.org/OADA/oada-client-discovery-js)
 [![Coverage Status](https://coveralls.io/repos/OADA/oada-client-discovery-js/badge.png?branch=master)](https://coveralls.io/r/OADA/oada-client-discovery-js?branch=master)
 [![Dependency Status](https://david-dm.org/oada/oada-client-discovery-js.svg)](https://david-dm.org/oada/oada-client-discovery-js)
